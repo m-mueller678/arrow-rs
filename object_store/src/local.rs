@@ -918,7 +918,7 @@ pub(crate) fn read_range(file: &mut File, path: &PathBuf, range: Range<usize>) -
 }
 
 fn open_file(path: &PathBuf) -> Result<(File, Metadata)> {
-    let ret = match File::open(path).and_then(|f| Ok((f.metadata()?, f))) {
+    let ret = match File::open(path).and_then(|f| Ok((metadata(path)?, f))) {
         Err(e) => Err(match e.kind() {
             ErrorKind::NotFound => Error::NotFound {
                 path: path.clone(),
